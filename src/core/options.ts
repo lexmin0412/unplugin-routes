@@ -41,13 +41,19 @@ export interface Options {
    * @returns Transformed path
    */
   transformRoutePath?: (path: string) => string
+
+  /**
+   * The route to be used as the index route (/) if no index file is found.
+   * This allows mapping the root path to a specific named route.
+   */
+  indexRoute?: string
 }
 
 type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U
 
 export type OptionsResolved = Overwrite<
   Required<Options>,
-  Pick<Options, 'enforce' | 'transformRoutePath'>
+  Pick<Options, 'enforce' | 'transformRoutePath' | 'indexRoute'>
 >
 
 export function resolveOptions(options: Options): OptionsResolved {
@@ -61,5 +67,6 @@ export function resolveOptions(options: Options): OptionsResolved {
     debug: options.debug || false,
     routeStyle: options.routeStyle || 'react-router',
     transformRoutePath: options.transformRoutePath,
+    indexRoute: options.indexRoute,
   }
 }

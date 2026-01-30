@@ -24,6 +24,20 @@ export class Context {
     }
   }
 
+  private sortRouteNodes(nodes: Iterable<RouteNode>): RouteNode[] {
+    return Array.from(nodes).toSorted((a, b) => {
+      if (a.segment === b.segment) return 0
+      if (a.segment === '') return -1
+      if (b.segment === '') return 1
+
+      const aIsDynamic = a.segment.startsWith(':')
+      const bIsDynamic = b.segment.startsWith(':')
+      if (aIsDynamic && !bIsDynamic) return 1
+      if (!aIsDynamic && bIsDynamic) return -1
+      return a.segment.length > b.segment.length ? -1 : 1
+    })
+  }
+
   async searchGlob(): Promise<string[]> {
     const dirs = Array.isArray(this.options.dirs)
       ? this.options.dirs
@@ -138,6 +152,19 @@ export class Context {
       currentNode.component = file
     }
 
+    if (this.options.indexRoute && !rootNode.children.has('')) {
+      const parts = this.options.indexRoute.split('/')
+      let currentNode: RouteNode | undefined = rootNode
+      for (const part of parts) {
+        if (!part) continue
+        currentNode = currentNode.children.get(part)
+        if (!currentNode) break
+      }
+      if (currentNode) {
+        rootNode.children.set('', { ...currentNode, segment: '' })
+      }
+    }
+
     if (this.options.routeStyle === 'vue-router') {
       return this.generateVueRoutes(rootNode)
     }
@@ -169,16 +196,7 @@ export class Context {
       }
 
       if (node.children.size > 0) {
-        const sortedChildren = Array.from(node.children.values()).toSorted(
-          (a, b) => {
-            if (a.segment === b.segment) return 0
-            const aIsDynamic = a.segment.startsWith(':')
-            const bIsDynamic = b.segment.startsWith(':')
-            if (aIsDynamic && !bIsDynamic) return 1
-            if (!aIsDynamic && bIsDynamic) return -1
-            return a.segment.length > b.segment.length ? -1 : 1
-          },
-        )
+        const sortedChildren = this.sortRouteNodes(node.children.values())
 
         code += `    children: [\n`
         sortedChildren.forEach((child) => {
@@ -194,16 +212,9 @@ export class Context {
       return code
     }
 
-    const routeDefinitions = Array.from(rootNode.children.values())
-      .toSorted((a, b) => {
-        if (a.segment === b.segment) return 0
-        const aIsDynamic = a.segment.startsWith(':')
-        const bIsDynamic = b.segment.startsWith(':')
-        if (aIsDynamic && !bIsDynamic) return 1
-        if (!aIsDynamic && bIsDynamic) return -1
-        return a.segment.length > b.segment.length ? -1 : 1
-      })
-      .map((node) => generateRoutes(node, true))
+    const routeDefinitions = this.sortRouteNodes(
+      rootNode.children.values(),
+    ).map((node) => generateRoutes(node, true))
 
     return `
 import React from 'react'
@@ -236,16 +247,7 @@ export default routes
       }
 
       if (node.children.size > 0) {
-        const sortedChildren = Array.from(node.children.values()).toSorted(
-          (a, b) => {
-            if (a.segment === b.segment) return 0
-            const aIsDynamic = a.segment.startsWith(':')
-            const bIsDynamic = b.segment.startsWith(':')
-            if (aIsDynamic && !bIsDynamic) return 1
-            if (!aIsDynamic && bIsDynamic) return -1
-            return a.segment.length > b.segment.length ? -1 : 1
-          },
-        )
+        const sortedChildren = this.sortRouteNodes(node.children.values())
 
         code += `    children: [\n`
         sortedChildren.forEach((child) => {
@@ -261,16 +263,9 @@ export default routes
       return code
     }
 
-    const routeDefinitions = Array.from(rootNode.children.values())
-      .toSorted((a, b) => {
-        if (a.segment === b.segment) return 0
-        const aIsDynamic = a.segment.startsWith(':')
-        const bIsDynamic = b.segment.startsWith(':')
-        if (aIsDynamic && !bIsDynamic) return 1
-        if (!aIsDynamic && bIsDynamic) return -1
-        return a.segment.length > b.segment.length ? -1 : 1
-      })
-      .map((node) => generateRoutes(node, true))
+    const routeDefinitions = this.sortRouteNodes(
+      rootNode.children.values(),
+    ).map((node) => generateRoutes(node, true))
 
     return `
 const routes = [
