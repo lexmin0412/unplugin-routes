@@ -47,23 +47,41 @@ export class Context {
     return files
   }
 
-  resolveRoutePath(relativePath: string): string {
+  getTransformedPath(relativePath: string): string {
     const ext = path.extname(relativePath)
-    // Support extensions like .page.tsx
     const exts = this.options.extensions.map((e) => `.${e}`)
-    let route = relativePath
+    let pathWithoutExt = relativePath
+
     for (const e of exts) {
-      if (route.endsWith(e)) {
-        route = route.slice(0, -e.length)
+      if (pathWithoutExt.endsWith(e)) {
+        pathWithoutExt = pathWithoutExt.slice(0, -e.length)
         break
       }
     }
-    if (route === relativePath) {
-      route = relativePath.slice(0, -ext.length)
+    if (pathWithoutExt === relativePath) {
+      pathWithoutExt = relativePath.slice(0, -ext.length)
     }
 
     // Normalize path separators for Windows
-    route = route.replaceAll('\\', '/')
+    pathWithoutExt = pathWithoutExt.replaceAll('\\', '/')
+
+    if (this.options.transformRoutePath) {
+      return this.options.transformRoutePath(pathWithoutExt)
+    }
+
+    return pathWithoutExt
+      .split('/')
+      .map((part) => {
+        // dynamic route
+        if (part.startsWith('[') && part.endsWith(']')) return part
+        // kebab-case
+        return part.replaceAll(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+      })
+      .join('/')
+  }
+
+  resolveRoutePath(relativePath: string): string {
+    let route = this.getTransformedPath(relativePath)
 
     // Remove 'index' from end
     if (route.endsWith('/index') || route === 'index') {
@@ -97,24 +115,7 @@ export class Context {
       if (!dir) continue
 
       const relativePath = path.relative(path.resolve(this.root, dir), file)
-      // Normalize path separators
-      const exts = this.options.extensions.map((e) => `.${e}`)
-      let pathWithoutExt = relativePath
-
-      // Match extension accurately
-      for (const e of exts) {
-        if (pathWithoutExt.endsWith(e)) {
-          pathWithoutExt = pathWithoutExt.slice(0, -e.length)
-          break
-        }
-      }
-      // If no custom extension matched, fallback to standard behavior (though glob should ensure match)
-      if (pathWithoutExt === relativePath) {
-        const ext = path.extname(relativePath)
-        pathWithoutExt = relativePath.slice(0, -ext.length)
-      }
-
-      pathWithoutExt = pathWithoutExt.replaceAll('\\', '/')
+      const pathWithoutExt = this.getTransformedPath(relativePath)
 
       const parts = pathWithoutExt.split('/')
 
@@ -151,8 +152,8 @@ export class Context {
 
       // Determine path
       let routePath = node.segment
-      if (isRoot && routePath === '') {
-        routePath = '/'
+      if (isRoot && !routePath.startsWith('/')) {
+        routePath = `/${routePath}`
       }
 
       code += `    path: '${routePath}',\n`
@@ -223,8 +224,8 @@ export default routes
 
       // Determine path
       let routePath = node.segment
-      if (isRoot && routePath === '') {
-        routePath = '/'
+      if (isRoot && !routePath.startsWith('/')) {
+        routePath = `/${routePath}`
       }
 
       code += `    path: '${routePath}',\n`

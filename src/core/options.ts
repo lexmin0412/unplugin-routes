@@ -34,13 +34,20 @@ export interface Options {
    * @default 'react-router'
    */
   routeStyle?: 'react-router' | 'vue-router'
+
+  /**
+   * Custom route path transformation
+   * @param path Relative path without extension
+   * @returns Transformed path
+   */
+  transformRoutePath?: (path: string) => string
 }
 
 type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U
 
 export type OptionsResolved = Overwrite<
   Required<Options>,
-  Pick<Options, 'enforce'>
+  Pick<Options, 'enforce' | 'transformRoutePath'>
 >
 
 export function resolveOptions(options: Options): OptionsResolved {
@@ -53,5 +60,6 @@ export function resolveOptions(options: Options): OptionsResolved {
     enforce: 'enforce' in options ? options.enforce : 'pre',
     debug: options.debug || false,
     routeStyle: options.routeStyle || 'react-router',
+    transformRoutePath: options.transformRoutePath,
   }
 }
