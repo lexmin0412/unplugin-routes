@@ -105,4 +105,25 @@ describe('Context', () => {
     expect(code).toContain("path: ':id',")
     expect(code).toMatchSnapshot()
   })
+
+  it('indexRoute option', async () => {
+    const options = resolveOptions({
+      dirs: 'pages-no-index',
+      indexRoute: 'about',
+    })
+    const ctx = new Context(options, root)
+    const code = await ctx.generateRoutesCode()
+
+    // Should have / route
+    expect(code).toContain("path: '/',")
+    // Should have /about route
+    expect(code).toContain("path: '/about',")
+
+    // The / route should come before /about
+    const rootIndex = code.indexOf("path: '/',")
+    const aboutIndex = code.indexOf("path: '/about',")
+    expect(rootIndex).toBeLessThan(aboutIndex)
+
+    expect(code).toMatchSnapshot()
+  })
 })

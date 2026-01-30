@@ -4,39 +4,39 @@ exports[`Context > generateRoutesCode 1`] = `
 "
 import React from 'react'
 
-const Page_0 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/blog.page.tsx'))
-const Page_1 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/about.tsx'))
-const Page_2 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/users.tsx'))
-const Page_3 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/users/list.tsx'))
-const Page_4 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/users/[id].tsx'))
-const Page_5 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/index.tsx'))
+const Page_0 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/index.tsx'))
+const Page_1 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/blog.page.tsx'))
+const Page_2 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/about.tsx'))
+const Page_3 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/users.tsx'))
+const Page_4 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/users/list.tsx'))
+const Page_5 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/users/[id].tsx'))
 
 const routes = [
 {
-    path: '/blog.page',
+    path: '/',
     element: React.createElement(Page_0),
   },
 {
-    path: '/about',
+    path: '/blog.page',
     element: React.createElement(Page_1),
   },
 {
-    path: '/users',
+    path: '/about',
     element: React.createElement(Page_2),
+  },
+{
+    path: '/users',
+    element: React.createElement(Page_3),
     children: [
   {
       path: 'list',
-      element: React.createElement(Page_3),
+      element: React.createElement(Page_4),
     },
   {
       path: ':id',
-      element: React.createElement(Page_4),
+      element: React.createElement(Page_5),
     },
     ],
-  },
-{
-    path: '/',
-    element: React.createElement(Page_5),
   }
 ]
 
@@ -47,6 +47,10 @@ export default routes
 exports[`Context > generateRoutesCode vue 1`] = `
 "
 const routes = [
+{
+    path: '/',
+    component: () => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/index.tsx'),
+  },
 {
     path: '/blog.page',
     component: () => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/blog.page.tsx'),
@@ -68,10 +72,28 @@ const routes = [
       component: () => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/users/[id].tsx'),
     },
     ],
-  },
+  }
+]
+
+export default routes
+"
+`;
+
+exports[`Context > indexRoute option 1`] = `
+"
+import React from 'react'
+
+const Page_0 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages-no-index/about.tsx'))
+const Page_1 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages-no-index/about.tsx'))
+
+const routes = [
 {
     path: '/',
-    component: () => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/index.tsx'),
+    element: React.createElement(Page_0),
+  },
+{
+    path: '/about',
+    element: React.createElement(Page_1),
   }
 ]
 
