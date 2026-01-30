@@ -1,19 +1,19 @@
 {
-  "name": "unplugin-starter",
+  "name": "unplugin-routes",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "packageManager": "pnpm@10.28.1",
   "description": "Description.",
   "author": "Lexmin0412 <zhangle_dev@outlook.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/lexmin0412",
-  "homepage": "https://github.com/lexmin0412/unplugin-starter#readme",
+  "homepage": "https://github.com/lexmin0412/unplugin-routes#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lexmin0412/unplugin-starter.git"
+    "url": "git+https://github.com/lexmin0412/unplugin-routes.git"
   },
   "bugs": {
-    "url": "https://github.com/lexmin0412/unplugin-starter/issues"
+    "url": "https://github.com/lexmin0412/unplugin-routes/issues"
   },
   "keywords": [
     "unplugin",
@@ -28,6 +28,7 @@
   "exports": {
     ".": "./dist/index.js",
     "./api": "./dist/api.js",
+    "./client": "./dist/client.d.ts",
     "./esbuild": "./dist/esbuild.js",
     "./farm": "./dist/farm.js",
     "./rolldown": "./dist/rolldown.js",
@@ -42,10 +43,14 @@
       "*": [
         "./dist/*.d.ts",
         "./*"
+      ],
+      "client": [
+        "./client.d.ts"
       ]
     }
   },
   "files": [
+    "client.d.ts",
     "dist"
   ],
   "publishConfig": {
@@ -65,6 +70,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
+    "fast-glob": "^3.3.3",
     "unplugin": "^3.0.0"
   },
   "devDependencies": {
