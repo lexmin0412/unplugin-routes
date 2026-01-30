@@ -19,15 +19,15 @@ const Page_5 = React.lazy(() => import('./index-l0sNRNKZ.js'));
 
 const routes = [
 {
-    path: 'blog.page',
+    path: '/blog.page',
     element: React.createElement(Page_0),
   },
 {
-    path: 'about',
+    path: '/about',
     element: React.createElement(Page_1),
   },
 {
-    path: 'users',
+    path: '/users',
     element: React.createElement(Page_2),
     children: [
   {

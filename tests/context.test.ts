@@ -51,13 +51,36 @@ describe('Context', () => {
     expect(ctx.resolveRoutePath('users/[id].tsx')).toBe('/users/:id')
   })
 
+  it('transform route path default (kebab-case)', () => {
+    expect(ctx.resolveRoutePath('AboutUs.tsx')).toBe('/about-us')
+    expect(ctx.resolveRoutePath('UserProfile/Settings.tsx')).toBe(
+      '/user-profile/settings',
+    )
+    expect(ctx.resolveRoutePath('UserProfile/[id].tsx')).toBe(
+      '/user-profile/:id',
+    )
+    expect(ctx.resolveRoutePath('MyPage.tsx')).toBe('/my-page')
+  })
+
+  it('transform route path custom', () => {
+    const options = resolveOptions({
+      dirs: 'pages',
+      transformRoutePath: (path) => path.toUpperCase(),
+    })
+    const ctx = new Context(options, root)
+    expect(ctx.resolveRoutePath('about.tsx')).toBe('/ABOUT')
+    // Note: transform happens before [id] -> :id replacement, but [id] is part of the path
+    // so [id] becomes [ID] and then :ID
+    expect(ctx.resolveRoutePath('users/[id].tsx')).toBe('/USERS/:ID')
+  })
+
   it('generateRoutesCode', async () => {
     const code = await ctx.generateRoutesCode()
     // console.log(code)
     expect(code).toContain("path: '/',")
-    expect(code).toContain("path: 'about',")
+    expect(code).toContain("path: '/about',")
     // Should have nested structure for users
-    expect(code).toContain("path: 'users',")
+    expect(code).toContain("path: '/users',")
     expect(code).toContain('children: [')
     expect(code).toContain("path: 'list',")
     expect(code).toContain("path: ':id',")
@@ -73,10 +96,10 @@ describe('Context', () => {
     const code = await ctx.generateRoutesCode()
     // console.log(code)
     expect(code).toContain("path: '/',")
-    expect(code).toContain("path: 'about',")
+    expect(code).toContain("path: '/about',")
     expect(code).toContain('component: () => import(')
     // Should have nested structure for users
-    expect(code).toContain("path: 'users',")
+    expect(code).toContain("path: '/users',")
     expect(code).toContain('children: [')
     expect(code).toContain("path: 'list',")
     expect(code).toContain("path: ':id',")

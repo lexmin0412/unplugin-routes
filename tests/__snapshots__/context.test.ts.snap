@@ -13,15 +13,15 @@ const Page_5 = React.lazy(() => import('/Users/huangmin/code/lexmin/github/unplu
 
 const routes = [
 {
-    path: 'blog.page',
+    path: '/blog.page',
     element: React.createElement(Page_0),
   },
 {
-    path: 'about',
+    path: '/about',
     element: React.createElement(Page_1),
   },
 {
-    path: 'users',
+    path: '/users',
     element: React.createElement(Page_2),
     children: [
   {
@@ -48,15 +48,15 @@ exports[`Context > generateRoutesCode vue 1`] = `
 "
 const routes = [
 {
-    path: 'blog.page',
+    path: '/blog.page',
     component: () => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/blog.page.tsx'),
   },
 {
-    path: 'about',
+    path: '/about',
     component: () => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/about.tsx'),
   },
 {
-    path: 'users',
+    path: '/users',
     component: () => import('/Users/huangmin/code/lexmin/github/unplugin-routes/tests/fixtures/pages/users.tsx'),
     children: [
   {
