@@ -8,7 +8,12 @@ describe('rollup', async () => {
   await testFixtures(
     '*.js',
     async (args, id) => {
-      const { snapshot } = await rollupBuild(id, [Starter()])
+      const { snapshot } = await rollupBuild(id, [
+        Starter({
+          dirs: 'pages',
+          root: path.dirname(id),
+        }),
+      ])
       return snapshot
     },
     { cwd: path.resolve(dirname, 'fixtures'), promise: true },

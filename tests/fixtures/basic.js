@@ -1,1 +1,2 @@
-export const num = 10
+import routes from 'virtual:routes'
+export { routes }

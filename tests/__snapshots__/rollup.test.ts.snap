@@ -1,10 +1,63 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`rollup > basic.js 1`] = `
-"// basic.js
-// unplugin-starter injected
-const num = 10;
+"// _id_-l0sNRNKZ.js
 
-export { num };
+
+// about-l0sNRNKZ.js
+
+
+// basic.js
+import React from 'react';
+
+const Page_0 = React.lazy(() => import('./blog.page-l0sNRNKZ.js'));
+const Page_1 = React.lazy(() => import('./about-l0sNRNKZ.js'));
+const Page_2 = React.lazy(() => import('./users-l0sNRNKZ.js'));
+const Page_3 = React.lazy(() => import('./list-l0sNRNKZ.js'));
+const Page_4 = React.lazy(() => import('./_id_-l0sNRNKZ.js'));
+const Page_5 = React.lazy(() => import('./index-l0sNRNKZ.js'));
+
+const routes = [
+{
+    path: 'blog.page',
+    element: React.createElement(Page_0),
+  },
+{
+    path: 'about',
+    element: React.createElement(Page_1),
+  },
+{
+    path: 'users',
+    element: React.createElement(Page_2),
+    children: [
+  {
+      path: 'list',
+      element: React.createElement(Page_3),
+    },
+  {
+      path: ':id',
+      element: React.createElement(Page_4),
+    },
+    ],
+  },
+{
+    path: '/',
+    element: React.createElement(Page_5),
+  }
+];
+
+export { routes };
+
+// blog.page-l0sNRNKZ.js
+
+
+// index-l0sNRNKZ.js
+
+
+// list-l0sNRNKZ.js
+
+
+// users-l0sNRNKZ.js
+
 "
 `;
