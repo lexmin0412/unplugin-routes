@@ -12,7 +12,7 @@ import { Starter } from './index'
  * @example
  * ```ts
  * // vite.config.ts
- * import Starter from 'unplugin-starter/vite'
+ * import Starter from 'unplugin-routes/vite'
  *
  * export default defineConfig({
  *   plugins: [Starter()],

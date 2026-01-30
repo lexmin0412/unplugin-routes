@@ -12,7 +12,7 @@ import { Starter } from './index'
  * @example
  * ```js
  * // webpack.config.js
- * import Starter from 'unplugin-starter/webpack'
+ * import Starter from 'unplugin-routes/webpack'
  *
  * export default {
  *   plugins: [Starter()],

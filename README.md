@@ -1,4 +1,4 @@
-# unplugin-starter
+# unplugin-routes
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
@@ -13,10 +13,10 @@ Starter template for [unplugin](https://github.com/unjs/unplugin).
 To use this template, clone it down using:
 
 ```bash
-npx degit lexmin0412/unplugin-starter unplugin-my-plugin
+npx degit lexmin0412/unplugin-routes unplugin-my-plugin
 ```
 
-And do a global replacement of `unplugin-starter` with your plugin name.
+And do a global replacement of `unplugin-routes` with your plugin name.
 
 Then you can start developing your unplugin 🔥
 
@@ -28,7 +28,7 @@ To release a new version, run: `pnpm run release`.
 ## Installation
 
 ```bash
-npm i -D unplugin-starter
+npm i -D unplugin-routes
 ```
 
 <details>
@@ -36,7 +36,7 @@ npm i -D unplugin-starter
 
 ```ts
 // vite.config.ts
-import Starter from 'unplugin-starter/vite'
+import Starter from 'unplugin-routes/vite'
 
 export default defineConfig({
   plugins: [Starter()],
@@ -50,7 +50,7 @@ export default defineConfig({
 
 ```ts
 // rollup.config.js
-import Starter from 'unplugin-starter/rollup'
+import Starter from 'unplugin-routes/rollup'
 
 export default {
   plugins: [Starter()],
@@ -64,7 +64,7 @@ export default {
 
 ```ts
 // rolldown.config.ts / tsdown.config.ts
-import Starter from 'unplugin-starter/rolldown'
+import Starter from 'unplugin-routes/rolldown'
 
 export default {
   plugins: [Starter()],
@@ -78,7 +78,7 @@ export default {
 
 ```ts
 import { build } from 'esbuild'
-import Starter from 'unplugin-starter/esbuild'
+import Starter from 'unplugin-routes/esbuild'
 
 build({
   plugins: [Starter()],
@@ -92,7 +92,7 @@ build({
 
 ```js
 // webpack.config.js
-import Starter from 'unplugin-starter/webpack'
+import Starter from 'unplugin-routes/webpack'
 
 export default {
   /* ... */
@@ -107,7 +107,7 @@ export default {
 
 ```ts
 // rspack.config.js
-import Starter from 'unplugin-starter/rspack'
+import Starter from 'unplugin-routes/rspack'
 
 export default {
   /* ... */
@@ -123,9 +123,9 @@ export default {
 
 <!-- Badges -->
 
-[npm-version-src]: https://img.shields.io/npm/v/unplugin-starter.svg
-[npm-version-href]: https://npmjs.com/package/unplugin-starter
-[npm-downloads-src]: https://img.shields.io/npm/dm/unplugin-starter
-[npm-downloads-href]: https://www.npmcharts.com/compare/unplugin-starter?interval=30
-[unit-test-src]: https://github.com/lexmin0412/unplugin-starter/actions/workflows/unit-test.yml/badge.svg
-[unit-test-href]: https://github.com/lexmin0412/unplugin-starter/actions/workflows/unit-test.yml
+[npm-version-src]: https://img.shields.io/npm/v/unplugin-routes.svg
+[npm-version-href]: https://npmjs.com/package/unplugin-routes
+[npm-downloads-src]: https://img.shields.io/npm/dm/unplugin-routes
+[npm-downloads-href]: https://www.npmcharts.com/compare/unplugin-routes?interval=30
+[unit-test-src]: https://github.com/lexmin0412/unplugin-routes/actions/workflows/unit-test.yml/badge.svg
+[unit-test-href]: https://github.com/lexmin0412/unplugin-routes/actions/workflows/unit-test.yml

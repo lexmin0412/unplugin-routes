@@ -12,7 +12,7 @@ import { Starter } from './index'
  * @example
  * ```ts
  * // farm.config.js
- * import Starter from 'unplugin-starter/farm'
+ * import Starter from 'unplugin-routes/farm'
  *
  * export default {
  *   plugins: [Starter()],
