@@ -113,17 +113,17 @@ describe('Context', () => {
     })
     const ctx = new Context(options, root)
     const code = await ctx.generateRoutesCode()
-
+    
     // Should have / route
     expect(code).toContain("path: '/',")
     // Should have /about route
     expect(code).toContain("path: '/about',")
-
+    
     // The / route should come before /about
     const rootIndex = code.indexOf("path: '/',")
     const aboutIndex = code.indexOf("path: '/about',")
     expect(rootIndex).toBeLessThan(aboutIndex)
-
+    
     expect(code).toMatchSnapshot()
   })
 })
